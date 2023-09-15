@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import logo from "./iconBot.png";
 import iconClose from "./iconClose.png";
-import { FixedSizeList as List } from "react-window";
+let context = "";
 let selectedItem = "";
 function App() {
   const [messages, setMessages] = useState([
@@ -12,17 +12,23 @@ function App() {
     },
   ]);
   const data = [
-    "View Billing Option",
-    "Claim or Roadside Help",
-    "Manage My Policy",
-    "Start a Quote",
+    "PARACETAMOL",
+    "HYDROXYCHLOROQUINE",
+    "ACETAMINPPHEN",
+    "TYLENOL",
   ];
   const [isBotVisible, setIsBotVisible] = useState(false);
   const [updateView, setUpdateView] = useState(false);
+  const [updateView2, setUpdateView2] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const handleImageClick = () => {
-    callAPI();
+    let newObj = {
+      fromOrTo: "Option",
+      message: data,
+    };
+    messages.push(newObj);
+    setMessages(messages);
     setIsBotVisible(true);
   };
 
@@ -43,8 +49,9 @@ function App() {
     };
     messages.push(newObj);
     setMessages(messages);
+    setInputValue("");
     setUpdateView(!updateView);
-    callAPIWithInput();
+    callAPIWithInputWithSendClick(inputValue);
   };
   const handlePressCell = (item) => {
     selectedItem = item;
@@ -56,25 +63,26 @@ function App() {
     setMessages(messages);
     setInputValue("");
     setUpdateView(!updateView);
+    callAPIWithInput(item);
   };
 
-  const Row = ({ index, style }) => {
-    if (messages[index].fromOrTo === "From") {
+  const Row = ({ message, index }) => {
+    if (message.fromOrTo === "From") {
       return (
         <div key={index} className="left-box">
-          {messages[index].message}
+          {message.message}
         </div>
       );
-    } else if (messages[index].fromOrTo === "To") {
+    } else if (message.fromOrTo === "To") {
       return (
         <div key={index} className="right-box">
-          {messages[index].message}
+          {message.message}
         </div>
       );
-    } else if (messages[index].fromOrTo === "Option") {
+    } else if (message.fromOrTo === "Option") {
       return (
         <div className="cell-border">
-          {data.map((item, i) => (
+          {message.message.map((item, i) => (
             <div onClick={() => handlePressCell(item)} className="cell" key={i}>
               {item}
             </div>
@@ -95,46 +103,54 @@ function App() {
     }
   };
 
-  const callAPI = async () => {
-    try {
-      let url = `https://jsonplaceholder.typicode.com/users`;
-      const res = await fetch(url);
-      const finalRes = await res.text();
-      console.log("finalRes 1st time  " + finalRes);
-
-      let newObj = {
-        fromOrTo: "Option",
-        message: "",
-      };
-      messages.push(newObj);
-      setMessages(messages);
-      setUpdateView(!updateView);
-    } catch (err) {
-      console.error("err", err);
-    }
-  };
-
-  const callAPIWithInput = async () => {
+  const callAPI = async (context) => {
     try {
       let url = `https://jsonplaceholder.typicode.com/users`;
       const res = await fetch(url);
       // const res = await fetch(url, {
-      //   method: "post",
-      //   body: selectedItem + inputValue,
+      //   body: JSON.stringify(context),
       // });
       const finalRes = await res.json();
+      console.log("finalRes 1st time  " + finalRes);
+      let optionArr = [];
+      for (let index = 0; index < 2; index++) {
+        const element = finalRes[index];
+        optionArr.push(element.name);
+      }
       let newObj = {
-        fromOrTo: "To",
-        message: finalRes[0].name,
+        fromOrTo: "Option",
+        message: optionArr,
       };
       messages.push(newObj);
       setMessages(messages);
-      setInputValue("");
-      setUpdateView(!updateView);
+      setUpdateView2(!updateView2);
     } catch (err) {
       console.error("err", err);
     }
   };
+  const callAPIWithInput = async (item) => {
+    try {
+      let url =
+        `https://tltitnfue2.execute-api.us-east-1.amazonaws.com/IT/` + item;
+      const res = await fetch(url);
+      context = await res.text();
+      console.log("context    " + context);
+      callAPI(context);
+    } catch (err) {
+      console.error("err", err);
+    }
+  };
+  const callAPIWithInputWithSendClick = async (item) => {
+    try {
+      let url =
+        `https://tltitnfue2.execute-api.us-east-1.amazonaws.com/IT/` + item;
+      const res = await fetch(url);
+      context = await res.text();
+    } catch (err) {
+      console.error("err", err);
+    }
+  };
+
   return (
     <body>
       {isBotVisible ? (
@@ -152,14 +168,11 @@ function App() {
 
           <div className="chatbot-input">
             <div>
-              <List
-                height={300}
-                width={280}
-                itemCount={messages.length}
-                itemSize={50}
-              >
-                {Row}
-              </List>
+              <div className="chat-container">
+                {messages.map((message, index) => (
+                  <Row key={index} message={message} />
+                ))}
+              </div>
               <div className="chatbot-input">
                 <input
                   type="text"
