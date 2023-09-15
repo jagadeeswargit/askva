@@ -51,6 +51,20 @@
   display: flex;
   justify-content: space-between;
 }
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 300px;
+  overflow-y: scroll;
+}
+.chat-container2 {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 100%;
+  overflow-y: scroll;
+}
 
 .chatbot-input input[type="text"] {
   flex-grow: 1;
@@ -102,9 +116,11 @@
   border-radius: 6%;
   text-align: center;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
-.cell.hovered {
-  background-color: #ff0000; /* Change background color on hover */
+.cell:hover {
+  background-color: rgba(163, 157, 157, 0.486);
+   
 }
 .cell-border {
   border: 1px solid rgba(73, 67, 67, 0.273);
