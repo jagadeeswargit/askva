@@ -1,3 +1,8 @@
+*{
+  padding: 0;
+  margin: 0;
+ 
+}
 .App {
   text-align: center;
   background-color: #282c34;
@@ -47,6 +52,11 @@
 }
 
 .chatbot-input {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.chatbot-input-2 {
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -112,19 +122,48 @@
 .cell {
   padding: 10px;
   color: rgba(108, 106, 106, 0.856);
-  border-bottom: 1px solid rgba(73, 67, 67, 0.273); ;
+ 
   border-radius: 6%;
   text-align: center;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
+.questioncell {
+  padding: 10px;
+  color: #CC0000;
+  border-radius: 1%;
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 10px;
+  margin: 2px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 .cell:hover {
   background-color: rgba(163, 157, 157, 0.486);
-   
 }
 .cell-border {
   border: 1px solid rgba(73, 67, 67, 0.273);
   border-radius: 5%;
+  margin-left: 10px;
+  width: 200px;
+}
+.question-cell-border {
+  border-radius: 5%;
+  margin-left: 10px;
+  width: 550px;
+}
+.answer-cell-border {
+  border-radius: 5%;
+  margin-left: 10px;
+  width: 550px;
+  margin-top: 20px;
+}
+.questioncell:hover {
+  background-color: rgba(163, 157, 157, 0.486);
+}
+.qudestioncell-border {
+    
   margin-left: 10px;
   width: 200px;
 }
@@ -157,4 +196,190 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.page {
+  display: flex;
+  justify-content: space-between;
+  align-items: normal; /* Adjust as needed */
+  height: 600px;
+   margin-top: 35px;
+}
+
+.left-column {
+  flex: 1;  
+  background-color: #b0e5f1;
+  border-radius: 5%;
+  border-width: 20px;
+  margin: 20px;
+  align-self: center;
+  height: 100%;
+}
+
+.right-column {
+  flex: 1;  
+  /* background-color: #eae383; */
+  border-radius: 5%;
+  border-width: 20px;
+   
+  align-self: center;
+  height: 100%;
+}
+
+.vertical-view {
+  display: flex;
+  flex-direction: column; /* Display items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.vertical-view ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.vertical-view li {
+  margin: 5px 0; /* Add spacing between list items */
+} 
+
+.drop-down {
+  width: 250px;
+  height: 30px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.question-ans-cell-border {
+  border-radius: 5%;
+  width: 750px;
+}
+.question-ans-cell-border-2 {
+  border-radius: 5%;
+  width: 750px;
+}
+
+.question-ans-cell {
+  color: #CC0000;
+  border-radius: 1%;
+  background-color: #0056b3;
+  background-color: white;
+  margin-left: -5px;
+   display: flex;
+   align-items: center;  
+   padding: 10px;
+   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+  }
+.question-ans-cell-2 {
+  color: #CC0000;
+  border-radius: 1%;
+  text-align: center;
+  margin: 2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;  
+  background-color: #b0e5f1;
+}
+
+
+.textarea-question {
+  width: 350px;
+  height: 50px;
+  padding: 10px;
+  border: 2px solid #CC0000;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 5px;
+  color: #CC0000;
+}
+.textarea-ans {
+  width: 240px;
+  height: 50px;
+  padding: 10px;
+  border: 2px solid #5610b8;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 5px;
+  color: #5610b8;
+}
+
+.textarea-question-2 {
+  word-wrap: normal;
+  word-break: normal;
+  width: 420px;
+  padding: 5px;
+  font-size: 16px;
+  color: #CC0000;
+  text-align: left;
+}
+.textarea-ans-2 {
+  width: 240px;
+  padding: 10px;
+  font-size: 16px;
+  margin: 5px;
+  color: #5610b8;
+  font-weight: bold;
+  text-align: left;
+}
+
+.icon-add {
+  margin: 10px;
+}
+
+.chatbot-input2 {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.download-button {
+  background-color: #CC0000; /* Button background color */
+  color: #fff; /* Text color */
+  border: none; /* Remove button border */
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: 16px; /* Font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  margin-top: 20px;
+}
+
+/* Optional: Add hover and focus styles for interactivity */
+.download-button:hover {
+  background-color: #830c0c; /* Change background color on hover */
+}
+
+.download-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Add a custom focus border */
+}
+
+.chat-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input-text {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #dd1a1a;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.chat-send-button {
+  background-color: #CC0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chat-send-button:hover {
+  background-color: #830c0c;
 }
